@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+{#{% form_theme form 'bootstrap_3_layout.html.twig' %}#}
+
+
+    {% block navbar %}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+            {#{%  if ( app.request.attributes.get('_route') =='fos_user_security_login') %}#}
+                {#{% set active= 'class=active' %}#}
+            {#{% endif %}#}
+           {##}
+            {#<li {{ active }}><a  href="{{ path('report_index')}}">Reports</a></li>#}
+
+            <li ><a  href="{{ path('report_index')}}">Reports</a></li>
+            <li > <a href="{{ path('plan_index')}}">Plans</a></li>
+            <li><a href="{{ path('department_index')}}">Departments</a></li>
+            <li><a href="{{ path('institution_index')}}">Institutions</a></li>
+            <li><a href="{{ path('customer_index')}}">Customers</a></li>
+        {% endif %}
+    {% endblock %}
+
+{% block body %}
+
+    {#<div>#}
+        {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+            {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+            {#<a href="{{ path('fos_user_security_logout') }}">#}
+                {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+            {#</a>#}
+        {#{% else %}#}
+            {#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+        {#{% endif %}#}
+    {#</div>#}
+
+
+    <div>
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    </div>
+
+{% endblock %}

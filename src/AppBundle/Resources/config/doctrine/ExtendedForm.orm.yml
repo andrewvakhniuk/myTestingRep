@@ -1,0 +1,23 @@
+AppBundle\Entity\ExtendedForm:
+    type: entity
+    table: report_forms
+    repositoryClass: AppBundle\Repository\ExtendedFormRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    oneToMany:
+        fieldTypes:
+            targetEntity: FieldType
+            mappedBy: extendedForm
+#            when you remove owning side then inverse side is deleted
+            orphanRemoval: true
+            cascade: ["persist","refresh","remove"]
+
+    lifecycleCallbacks: {  }

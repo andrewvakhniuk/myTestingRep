@@ -1,0 +1,19 @@
+index:
+    path:      /index
+    defaults:  { _controller: AppBundle:Default:index }
+
+blocked_ip:
+    path:      /blocked_ip
+    defaults:  { _controller: AppBundle:Error:blockedIp }
+access_denied:
+    path:      /access_denied
+    defaults:  { _controller: AppBundle:Error:accessDenied }
+
+
+app:
+    resource: '@AppBundle/Resources/config/routing/all.yml'
+    prefix: /sysrap/
+
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

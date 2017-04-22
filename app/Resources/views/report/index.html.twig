@@ -1,0 +1,45 @@
+{% extends 'report/main.html.twig' %}
+
+{% block body %}
+    <h1>Reports list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Countity</th>
+                <th>Comment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td><a href="{{ path('report_show', { 'id': report.id }) }}">{{ report.id }}</a></td>
+                <td>{% if report.date %}{{ report.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ report.product }}</td>
+                <td>{{ report.countity }}</td>
+                <td>{{ report.comment }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('report_show', { 'id': report.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('report_edit', { 'id': report.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('report_chooseForm') }}">Create a new report</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'institution/main.html.twig' %}
+
+{% block body %}
+    <h1>Institution</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ institution.id }}</td>
+            </tr>
+            <tr>
+                <th>Specialization</th>
+                <td>{{ institution.specialization }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ institution.city }}</td>
+            </tr>
+            <tr>
+                <th>Street</th>
+                <td>{{ institution.street }}</td>
+            </tr>
+            <tr>
+                <th>Building</th>
+                <td>{{ institution.building }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('institution_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('institution_edit', { 'id': institution.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

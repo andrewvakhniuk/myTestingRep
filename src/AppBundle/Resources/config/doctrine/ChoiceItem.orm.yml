@@ -1,0 +1,24 @@
+AppBundle\Entity\ChoiceItem:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ChoiceItemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+
+    manyToOne:
+        fieldType:
+            targetEntity: FieldType
+            inversedBy: choiceItems
+            nullable: false
+            joinColumn:
+                name: fieldType_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

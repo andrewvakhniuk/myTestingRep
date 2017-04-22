@@ -1,0 +1,32 @@
+AppBundle\Entity\LoginHistory:
+    type: entity
+    table: login_history
+    repositoryClass: AppBundle\Repository\LoginHistoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+            ip:
+                type: string
+                length: 50
+            dateTime:
+                type: datetime
+                column: date_time
+            userName:
+                type: string
+                length: 100
+                column: user_name
+            success:
+                type: boolean
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: loginHistories
+            nullable: true
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

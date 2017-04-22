@@ -1,0 +1,30 @@
+AppBundle\Entity\FieldValue:
+    type: entity
+    table: field_values
+    repositoryClass: AppBundle\Repository\FieldValueRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        value:
+            type: string
+            length: 255
+            nullable: true
+#   foreign keys
+        dataclassId:
+            type: integer
+        dataclassName:
+            type: string
+            length: 1000
+    manyToOne:
+        fieldType:
+            targetEntity: FieldType
+            inversedBy: fieldValues
+            nullable: false
+            joinColumn:
+                name: fieldType_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

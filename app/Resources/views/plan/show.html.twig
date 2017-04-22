@@ -1,0 +1,44 @@
+{% extends 'plan/main.html.twig' %}
+
+{% block body %}
+    <h1>Plan</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plan.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if plan.date %}{{ plan.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Task</th>
+                <td>{{ plan.task }}</td>
+            </tr>
+            <tr>
+                <th>Product</th>
+                <td>{{ plan.product }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ plan.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('plan_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('plan_edit', { 'id': plan.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

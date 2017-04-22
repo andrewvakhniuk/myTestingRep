@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block customJavascripts %}
+    <script type="text/javascript" src="{{ asset('assets/custom/jquery/dist/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/custom/js/formCollection.js') }}"></script>
+    <script type="text/javascript">
+        <!--
+        $(document).ready(function () {
+            new FormCollection('fieldTypes');
+            new FormCollection('choiceItems');
+
+
+//            initCollection(
+//                '#fieldTypes',
+//                'collection',
+//                '#choiceItems',
+//                'children_collection',
+//                '<a href="#" class="add-collection-item"><p></p><button type="button" class="btn btn-default btn-sm ">add</button></a>',
+//                '<a href="#" class="delete-collection-item"><button type="button" class="btn btn-default btn-sm btn-danger">delete</button></a>',
+//                '<a href="#" class="add-collection-item"><p></p><button type="button" class="btn btn-default btn-sm ">+</button></a>',
+//                '<a href="#" class="delete-collection-item"><button type="button" class="btn btn-default btn-sm btn-danger">-</button></a>'
+//            );
+        });
+        //-->
+    </script>
+{% endblock %}
+{% block body %}
+    <h1>Extendedform creation</h1>
+
+    {{ form_start(form) }}
+
+    {# render the task's only field: name #}
+    {{ form_row(form.name) }}
+
+    <h3>Fields</h3>
+    <ul class="fieldTypes" id="fieldTypes"
+        data-prototype="{{ form_widget(form.fieldTypes.vars.prototype)|e('html_attr') }}"
+        data-prototype-choices="{{ form_widget(form.fieldTypes.vars.prototype.children['choiceItems'].vars.prototype) | e('html_attr') }}"
+    >
+        {% for fieldType in form.fieldTypes %}
+            <li class="collection">
+                {{ form_row(fieldType.name) }}
+                {{ form_row(fieldType.type) }}
+
+                <ul class="choiceItems" id="choiceItems">
+                    {% for choiceItem in fieldType.choiceItems %}
+                        <li class="children_collection">{{ form_row(choiceItem.name) }}</li>
+                    {% endfor %}
+                </ul>
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+    <input type="submit" value="Create"/>
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('extendedform_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

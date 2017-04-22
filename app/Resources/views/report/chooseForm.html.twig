@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Choose report type</h1>
+
+    <table>
+        <thead>
+            {#<tr>#}
+                {#<th>Reports:</th>#}
+
+            {#</tr>#}
+        </thead>
+        <tbody>
+        {% for extendedForm in extendedForms %}
+            <tr>
+                <td><a href="{{ path('report_new', { 'id': extendedForm.id }) }}">{{ extendedForm.name }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

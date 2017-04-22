@@ -1,0 +1,34 @@
+AppBundle\Entity\FieldType:
+    type: entity
+    table: field_types
+    repositoryClass: AppBundle\Repository\FieldTypeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        type:
+            type: string
+            length: 100
+            nullable: true
+    manyToOne:
+        extendedForm:
+            targetEntity: ExtendedForm
+            inversedBy: fieldTypes
+            nullable: false
+            joinColumn:
+                name: extendedForm_id
+                referencedColumnName: id
+    oneToMany:
+        fieldValues:
+            targetEntity: FieldValue
+            mappedBy: fieldType
+        choiceItems:
+            targetEntity: ChoiceItem
+            mappedBy: fieldType
+    lifecycleCallbacks: {  }

@@ -1,0 +1,51 @@
+AppBundle\Entity\Report:
+    type: entity
+    table: reports
+    repositoryClass: AppBundle\Repository\ReportRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: datetimetz
+        product:
+            type: string
+            length: 255
+        countity:
+            type: integer
+        comment:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        institution:
+            targetEntity: Institution
+            inversedBy: reports
+            nullable: true
+            joinColumn:
+                name: institution_id
+                referencedColumnName: id
+        customer:
+            targetEntity: Customer
+            inversedBy: reports
+            nullable: true
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+        employee:
+            targetEntity: Employee
+            inversedBy: reports
+            joinColumn:
+                name: employee_id
+                referencedColumnName: id
+    oneToOne:
+        plan:
+            targetEntity: Plan
+            inversedBy: report
+            joinColumn:
+                name: plan_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

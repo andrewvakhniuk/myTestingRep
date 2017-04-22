@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+
+    <li ><a href="{{ path('report_index')}}">Reports</a></li>
+    <li class="active"> <a href="{{ path('plan_index')}}">Plans</a></li>
+    <li><a href="{{ path('department_index')}}">Departments</a></li>
+    <li><a href="{{ path('institution_index')}}">Institutions</a></li>
+    <li><a href="{{ path('customer_index')}}">Customers</a></li>
+
+{% endblock %}

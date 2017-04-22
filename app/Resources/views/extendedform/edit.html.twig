@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block customJavascripts %}
+    <script type="text/javascript" src="{{ asset('assets/custom/jquery/dist/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/custom/js/collectionForm.js') }}"></script>
+    <script type="text/javascript">
+        <!--
+        $(document).ready(function () {
+            initCollection(
+                '#fieldTypes',
+                '<a href="#" class="add-collection-item"><p></p><button type="button" class="btn btn-default btn-sm ">add</button></a>',
+                '<a href="#" class="delete-collection-item"><button type="button" class="btn btn-default btn-sm btn-danger">delete</button></a>'
+            );
+        });
+        //-->
+    </script>
+{% endblock %}
+
+{% block body %}
+    <h1>Report's form edit</h1>
+
+    {{ form_start(edit_form) }}
+        {# render the task's only field: name #}
+        {{ form_row(edit_form.name) }}
+
+        <h3>Fields</h3>
+        <ul class="fieldTypes" id="fieldTypes"
+            data-prototype="{{ form_widget(edit_form.fieldTypes.vars.prototype)|e('html_attr') }}">
+            {% for item in edit_form.fieldTypes %}
+                <li class="collection">
+                    {{ form_widget(item) }}
+                </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('extendedform_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

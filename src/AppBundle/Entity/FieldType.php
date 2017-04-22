@@ -1,0 +1,203 @@
+<?php
+
+namespace AppBundle\Entity;
+
+/**
+ * FieldType
+ */
+class FieldType
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return FieldType
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return FieldType
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+
+    /**
+     * @var \AppBundle\Entity\ExtendedForm
+     */
+    private $extendedForm;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fieldValues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->choiceItems= new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set extendedForm
+     *
+     * @param \AppBundle\Entity\ExtendedForm $extendedForm
+     *
+     * @return FieldType
+     */
+    public function setExtendedForm(ExtendedForm $extendedForm = null)
+    {
+        $this->extendedForm = $extendedForm;
+
+        return $this;
+    }
+
+    /**
+     * Get extendedForm
+     *
+     * @return \AppBundle\Entity\ExtendedForm
+     */
+    public function getExtendedForm()
+    {
+        return $this->extendedForm;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $fieldValues;
+
+
+    /**
+     * Add fieldValue
+     *
+     * @param \AppBundle\Entity\FieldValue $fieldValue
+     *
+     * @return FieldType
+     */
+    public function addFieldValue(\AppBundle\Entity\FieldValue $fieldValue)
+    {
+        $this->fieldValues[] = $fieldValue;
+
+        return $this;
+    }
+
+    /**
+     * Remove fieldValue
+     *
+     * @param \AppBundle\Entity\FieldValue $fieldValue
+     */
+    public function removeFieldValue(\AppBundle\Entity\FieldValue $fieldValue)
+    {
+        $this->fieldValues->removeElement($fieldValue);
+    }
+
+    /**
+     * Get fieldValues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFieldValues()
+    {
+        return $this->fieldValues;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $choiceItems;
+
+
+    /**
+     * Add choiceItem
+     *
+     * @param \AppBundle\Entity\ChoiceItem $choiceItem
+     *
+     * @return FieldType
+     */
+    public function addChoiceItem(\AppBundle\Entity\ChoiceItem $choiceItem)
+
+    {
+        $choiceItem->setFieldType($this);
+        $this->choiceItems[] = $choiceItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove choiceItem
+     *
+     * @param \AppBundle\Entity\ChoiceItem $choiceItem
+     */
+    public function removeChoiceItem(\AppBundle\Entity\ChoiceItem $choiceItem)
+    {
+        $choiceItem->setFieldType(null);
+        $this->choiceItems->removeElement($choiceItem);
+    }
+
+    /**
+     * Get choiceItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChoiceItems()
+    {
+        return $this->choiceItems;
+    }
+}

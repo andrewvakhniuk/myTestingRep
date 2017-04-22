@@ -1,0 +1,35 @@
+#file: Resources/config/doctrine/Employee.orm.yml
+AppBundle\Entity\Employee:
+    type: entity
+    table: employees
+    repositoryClass: AppBundle\Repository\EmployeeRepository
+    fields:
+        name:
+            type: string
+            length: '100'
+        surname:
+            type: string
+            length: '100'
+        phoneNumber:
+            type: string
+            length: '50'
+            column: phone_number
+
+    oneToMany:
+        reports:
+            targetEntity: Report
+            mappedBy: employee
+            cascade: ["persist"]
+        plans:
+            targetEntity: Plan
+            mappedBy: employee
+            cascade: ["persist"]
+    manyToOne:
+        department:
+            targetEntity: Department
+            inversedBy: employees
+            nullable: true
+            joinColumn:
+                name: department_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

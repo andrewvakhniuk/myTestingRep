@@ -1,0 +1,112 @@
+<?php
+
+namespace AppBundle\Entity;
+
+/**
+ * BlockedIp
+ */
+class BlockedIp
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $ip;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateTime;
+
+    /**
+     * @var string
+     */
+    private $userName;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     *
+     * @return BlockedIp
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set dateTime
+     *
+     * @param \DateTime $dateTime
+     *
+     * @return BlockedIp
+     */
+    public function setDateTime($dateTime)
+    {
+        $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTime
+     *
+     * @return \DateTime
+     */
+    public function getDateTime()
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     * Set userName
+     *
+     * @param string $userName
+     *
+     * @return BlockedIp
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
+
+        return $this;
+    }
+
+    /**
+     * Get userName
+     *
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+}

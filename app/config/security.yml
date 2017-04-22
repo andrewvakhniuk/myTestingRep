@@ -1,0 +1,44 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+         ROLE_MANAGER:     ROLE_EMPLOYEE
+         ROLE_BOSS:        ROLE_MANAGER
+         ROLE_ADMIN:       ROLE_BOSS
+#        ROLE_ADMIN:       ROLE_USER
+#        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                check_path: /login_check
+                login_path: /login
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                always_use_default_target_path: false
+                default_target_path: /profile
+               # failure_handler: authentication_handler
+            logout:
+                path: /logout
+                target: /login
+            anonymous:  ~
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY } #allow_if: "not has_role('ROLE_USER')" }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/sysrap/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+#    ALL voters should give access to the page
+    access_decision_manager:
+            # Strategy can be: affirmative, unanimous or consensus
+#            unanimous- all voters should confirm access
+            strategy: unanimous

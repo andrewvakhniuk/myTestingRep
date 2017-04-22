@@ -1,0 +1,15 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Andrew
+ * Date: 4/3/2017
+ * Time: 11:47 AM
+ */
+
+namespace AppBundle\Entity;
+
+
+class Field
+{
+
+}

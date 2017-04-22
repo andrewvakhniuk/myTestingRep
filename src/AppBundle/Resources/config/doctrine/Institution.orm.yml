@@ -1,0 +1,48 @@
+AppBundle\Entity\Institution:
+    type: entity
+    table: institutions
+    repositoryClass: AppBundle\Repository\InstitutionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        specialization:
+            type: string
+            length: 255
+        city:
+            type: string
+            length: 255
+        street:
+            type: string
+            length: 255
+        building:
+            type: string
+            length: '20'
+
+    oneToMany:
+        reports:
+            targetEntity: Report
+            mappedBy: institution
+            cascade: ["persist"]
+        plans:
+            targetEntity: Plan
+            mappedBy: institution
+            cascade: ["persist"]
+    manyToMany:
+        customers:
+            targetEntity: Customer
+            mappedBy: institutions
+            cascade: ["persist","refresh"]
+#            joinTable:
+#                name: institutions_customers
+#                nullable: true
+#                inverseJoinColumns:
+#                    customer_id:
+#                        referencedColumnName: id
+#                joinColumns:
+#                    institution_id:
+#                        referencedColumnName: id
+    lifecycleCallbacks: {  }

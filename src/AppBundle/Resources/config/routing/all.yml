@@ -1,0 +1,24 @@
+# AppBundle/Resources/config/routing/all.yml
+department:
+    resource: '@AppBundle/Resources/config/routing/department.yml'
+    prefix: /department
+
+customer:
+    resource: '@AppBundle/Resources/config/routing/customer.yml'
+    prefix: /customer
+
+institution:
+    resource: '@AppBundle/Resources/config/routing/institution.yml'
+    prefix: /institution
+
+plan:
+    resource: '@AppBundle/Resources/config/routing/plan.yml'
+    prefix: /plan
+
+report:
+    resource: '@AppBundle/Resources/config/routing/report.yml'
+    prefix: /report
+
+form:
+    resource: '@AppBundle/Resources/config/routing/extendedForm.yml'
+    prefix: /extendedForm

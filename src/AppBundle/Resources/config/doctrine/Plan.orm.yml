@@ -1,0 +1,50 @@
+AppBundle\Entity\Plan:
+    type: entity
+    table: plans
+    repositoryClass: AppBundle\Repository\PlanRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: datetime
+        task:
+            type: string
+            length: 255
+        product:
+            type: string
+            length: 255
+        comment:
+            type: string
+            length: 255
+            nullable: true
+
+    manyToOne:
+        institution:
+            targetEntity: Institution
+            inversedBy: plans
+            nullable: true
+            joinColumn:
+                name: institution_id
+                referencedColumnName: id
+        customer:
+            targetEntity: Customer
+            inversedBy: plans
+            nullable: true
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+        employee:
+            targetEntity: Employee
+            inversedBy: plans
+            joinColumn:
+                name: employee_id
+                referencedColumnName: id
+    oneToOne:
+        report:
+            targetEntity: Report
+            mappedBy: plan
+    lifecycleCallbacks: {  }

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Extendedforms list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for extendedForm in extendedForms %}
+            <tr>
+                <td><a href="{{ path('extendedform_show', { 'id': extendedForm.id }) }}">{{ extendedForm.id }}</a></td>
+                <td>{{ extendedForm.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('extendedform_show', { 'id': extendedForm.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('extendedform_edit', { 'id': extendedForm.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('extendedform_new') }}">Create a new extendedForm</a>
+        </li>
+    </ul>
+{% endblock %}

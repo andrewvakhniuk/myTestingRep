@@ -1,0 +1,45 @@
+AppBundle\Entity\Department:
+    type: entity
+    table: departments
+    repositoryClass: AppBundle\Repository\DepartmentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '100'
+        city:
+            type: string
+            length: '100'
+        street:
+            type: string
+            length: '100'
+        building:
+            type: string
+            length: '10'
+        phoneNumber:
+            type: string
+            length: '50'
+            column: phone_number
+    oneToMany:
+            employees:
+                targetEntity: Employee
+                mappedBy: department
+                cascade: ["persist","refresh"]
+            children:
+                targetEntity: AppBundle\Entity\Department
+                mappedBy: parent
+                cascade: ["persist"]
+    manyToOne:
+            parent:
+                targetEntity: AppBundle\Entity\Department
+                inversedBy: children
+                joinColumn:
+                    name: parent_id
+                    referencedColumnName: id
+                    onDelete: "SET NULL"
+    lifecycleCallbacks: {  }
