@@ -31,4 +31,5 @@ AppBundle\Entity\FieldType:
         choiceItems:
             targetEntity: ChoiceItem
             mappedBy: fieldType
+            cascade: ["persist","refresh","remove"]
     lifecycleCallbacks: {  }

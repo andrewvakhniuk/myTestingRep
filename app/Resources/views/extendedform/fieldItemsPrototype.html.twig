@@ -1,0 +1,19 @@
+<script>
+    var n = $('.collection0').length;
+    $('.needsCollectionId').attr('id', 'choiceItems' + n).removeClass('needsCollectionId');
+</script>
+
+{#<li class="collection0" style="border:1px solid red;margin:5px">#}
+    {{ form_row(item.name) }}
+    {{ form_row(item.type) }}
+
+    <ul style="border:1px solid blue;margin:5px" class="needsCollectionId choiceItems" {#id="choiceItems*"#}
+        {#data-prototype="{{ form_widget(item.choiceItems.vars.prototype) | e('html_attr') }}"#}
+        data-prototype="{% filter escape %}{% include 'extendedform/choiceItemsPrototype.html.twig' with { 'item': item.choiceItems.vars.prototype } %}{% endfilter %}"
+    >
+
+        {#>#}
+        <label>Choice items+</label>
+    </ul>
+
+{#</li>#}

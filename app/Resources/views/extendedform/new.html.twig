@@ -1,24 +1,51 @@
 {% extends 'base.html.twig' %}
 {% block customJavascripts %}
     <script type="text/javascript" src="{{ asset('assets/custom/jquery/dist/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/custom/js/formCollection.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/custom/js/collectionForm.js') }}"></script>
     <script type="text/javascript">
         <!--
         $(document).ready(function () {
-            new FormCollection('fieldTypes');
-            new FormCollection('choiceItems');
+
+            // init fieldTypes collection
+            initCollection(
+                    '#fieldTypes',
+                    '<a href="#" class="add-collection-item addFieldTypesItem">add</a>',
+                    '<a href="#" class="delete-collection-item">delete</a>',
+                    0
+            );
+
+            // init add nested collections in fieldTypes
+            $('.choiceItems').each(function(index, value) {
+                var id = '#choiceItems' + (index+1) + '';
+                // indexes are 0,1,...
+                initCollection(
+                        id,
+                        '<a href="#" class="add-collection-item' +(index+1)+ '">+</a>',
+                        '<a href="#" class="delete-collection-item' +(index+1)+ '">x</a>',
+                        (index+1)
+                );
+            });
+
+            // init nested collection for recently added fieldTypes collection after clicking on "add" button
+            $('.addFieldTypesItem').on('click', function() {
+                var numberOfChoiceItemsCollections = $('.choiceItems').length ;
+                var id = '#choiceItems' + numberOfChoiceItemsCollections + '';
+
+//                $(id).ready(function() {
+//                    var n = $('.collection0').length;
+//                    $('.needsCollectionClass2').addClass('collection' + n).removeClass('needsCollectionClass2');
+
+                    // indexes are 0,1,...
+                initCollection(
+                        id,
+                        '<a href="#" class="add-collection-item' +numberOfChoiceItemsCollections+ '">+</a>',
+                        '<a href="#" class="delete-collection-item' +numberOfChoiceItemsCollections+ '">x</a>',
+                        numberOfChoiceItemsCollections
+                );
+//                });
+            });
 
 
-//            initCollection(
-//                '#fieldTypes',
-//                'collection',
-//                '#choiceItems',
-//                'children_collection',
-//                '<a href="#" class="add-collection-item"><p></p><button type="button" class="btn btn-default btn-sm ">add</button></a>',
-//                '<a href="#" class="delete-collection-item"><button type="button" class="btn btn-default btn-sm btn-danger">delete</button></a>',
-//                '<a href="#" class="add-collection-item"><p></p><button type="button" class="btn btn-default btn-sm ">+</button></a>',
-//                '<a href="#" class="delete-collection-item"><button type="button" class="btn btn-default btn-sm btn-danger">-</button></a>'
-//            );
         });
         //-->
     </script>
@@ -33,22 +60,30 @@
 
     <h3>Fields</h3>
     <ul class="fieldTypes" id="fieldTypes"
-        data-prototype="{{ form_widget(form.fieldTypes.vars.prototype)|e('html_attr') }}"
-        data-prototype-choices="{{ form_widget(form.fieldTypes.vars.prototype.children['choiceItems'].vars.prototype) | e('html_attr') }}"
+        data-prototype="{% filter escape %}{% include 'extendedform/fieldItemsPrototype.html.twig' with { 'item': form.fieldTypes.vars.prototype } %}{% endfilter %}"
+        {#data-prototype="{{ form_widget(form.fieldTypes.vars.prototype)|e('html_attr') }}">#}
     >
+
+        {# loop indexes are 1,2,...#}
         {% for fieldType in form.fieldTypes %}
-            <li class="collection">
+            {% set loopIndex = loop.index %}
+            <li class="collection0" style="border:1px solid red;margin:5px">
                 {{ form_row(fieldType.name) }}
                 {{ form_row(fieldType.type) }}
-
-                <ul class="choiceItems" id="choiceItems">
+                <ul style="border:1px solid blue;margin:5px" class="choiceItems" id="choiceItems{{ loopIndex }}"
+                    data-prototype="{{ form_widget(fieldType.choiceItems.vars.prototype) | e('html_attr') }}"
+                    {#data-prototype="{% filter escape %}{% include 'extendedform/choiceItemsPrototype.html.twig' with { 'item': fieldType.choiceItems.vars.prototype } %}{% endfilter %}"#}
+                >
+                    <label>Choice items</label>
                     {% for choiceItem in fieldType.choiceItems %}
-                        <li class="children_collection">{{ form_row(choiceItem.name) }}</li>
+                        <li class="collection{{ loopIndex }}" style="border:1px solid green;margin:5px">
+                            {{ form_row(choiceItem.name) }}
+                        </li>
+                        <br>
                     {% endfor %}
                 </ul>
-
             </li>
-
+            <br>
         {% endfor %}
     </ul>
 
